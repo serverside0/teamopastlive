@@ -33,27 +33,17 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 10px;
     }
     p {
         font-size: 2rem;
         margin: 5px 0;
-        opacity: 0;
-        transform: scale(0.5);
-        animation: fadeInZoom 0.8s forwards;
-    }
-    @keyframes fadeInZoom {
-        to { 
-            opacity: 1; 
-            transform: scale(1);
-        }
+        opacity: 1;
+        transform: scale(1);
     }
     @keyframes pulse {
         0%, 100% { transform: scale(1); color: #ff4d6d; }
         50% { transform: scale(1.1); color: #ff638b; }
-    }
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
     }
 </style>
 </head>
@@ -66,7 +56,6 @@
     setInterval(() => {
         const p = document.createElement('p');
         p.textContent = 'Te amo 🩷';
-        p.style.animation = 'fadeInZoom 0.8s forwards, bounce 1s infinite';
         container.appendChild(p);
         container.scrollTop = container.scrollHeight;
     }, 300);
