@@ -6,7 +6,7 @@
 <title>Te Amo</title>
 <style>
     body {
-        background: #f7dbc3;
+        background: linear-gradient(135deg, #f7c3d9, #f7dbc3);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -15,43 +15,61 @@
         margin: 0;
         font-family: 'Helvetica Neue', sans-serif;
         color: #333;
+        overflow: hidden;
     }
     h1 {
-        font-size: 2rem;
-        font-weight: 400;
-        margin-bottom: 20px;
+        font-size: 3rem;
+        font-weight: 600;
         color: #ff4d6d;
+        text-align: center;
+        animation: pulse 2s infinite;
     }
     .container {
         text-align: center;
         width: 90%;
         max-width: 600px;
-        height: 60%;
+        height: 50%;
         overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     p {
-        font-size: 1.5rem;
+        font-size: 2rem;
         margin: 5px 0;
         opacity: 0;
-        animation: fadeIn 0.5s forwards;
+        transform: scale(0.5);
+        animation: fadeInZoom 0.8s forwards;
     }
-    @keyframes fadeIn {
-        to { opacity: 1; }
+    @keyframes fadeInZoom {
+        to { 
+            opacity: 1; 
+            transform: scale(1);
+        }
+    }
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); color: #ff4d6d; }
+        50% { transform: scale(1.1); color: #ff638b; }
+    }
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
     }
 </style>
 </head>
 <body>
-    <h1>💗 Te Amo Mi Princesa Enojona</h1>
+    <h1>💗 Te Amo Mi Princesa Enojona 💗</h1>
     <div class="container" id="loveContainer"></div>
 
 <script>
     const container = document.getElementById('loveContainer');
     setInterval(() => {
         const p = document.createElement('p');
-        p.textContent = 'Te amo';
+        p.textContent = 'Te amo 🩷';
+        p.style.animation = 'fadeInZoom 0.8s forwards, bounce 1s infinite';
         container.appendChild(p);
         container.scrollTop = container.scrollHeight;
-    }, 100);
+    }, 300);
 </script>
 </body>
 </html>
