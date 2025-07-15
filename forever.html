@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Te Amo</title>
+<style>
+    body {
+        background: #f7dbc3;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: 'Helvetica Neue', sans-serif;
+        color: #333;
+    }
+    h1 {
+        font-size: 2rem;
+        font-weight: 400;
+        margin-bottom: 20px;
+        color: #ff4d6d;
+    }
+    .container {
+        text-align: center;
+        width: 90%;
+        max-width: 600px;
+        height: 60%;
+        overflow-y: auto;
+    }
+    p {
+        font-size: 1.5rem;
+        margin: 5px 0;
+        opacity: 0;
+        animation: fadeIn 0.5s forwards;
+    }
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
+</style>
+</head>
+<body>
+    <h1>💗 Te Amo Mi Princesa Enojona</h1>
+    <div class="container" id="loveContainer"></div>
+
+<script>
+    const container = document.getElementById('loveContainer');
+    setInterval(() => {
+        const p = document.createElement('p');
+        p.textContent = 'Te amo';
+        container.appendChild(p);
+        container.scrollTop = container.scrollHeight;
+    }, 100);
+</script>
+</body>
+</html>
