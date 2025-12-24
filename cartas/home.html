@@ -311,6 +311,11 @@
 
             const form = e.target;
             const formData = new FormData(form);
+            const submitBtn = form.querySelector('.submit-btn');
+
+            // Deshabilitar botón y mostrar loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
 
             // Enviar a Formspree
             fetch(form.action, {
@@ -320,15 +325,32 @@
                     'Accept': 'application/json'
                 }
             }).then(response => {
-                if (response.ok) {
-                    // Redirigir a 5meses.html después de enviar
+                console.log('Response status:', response.status);
+                return response.json().then(data => ({ status: response.status, data: data }));
+            }).then(result => {
+                console.log('Result:', result);
+
+                if (result.status === 200 || result.status === 201) {
+                    // Éxito - Redirigir a 5meses.html
+                    alert('¡Mensaje enviado con éxito! Redirigiendo...');
                     window.location.href = '5meses.html';
+                } else if (result.status === 422) {
+                    // Error de validación
+                    alert('Error: Por favor completa todos los campos correctamente.');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Enviar y Continuar';
                 } else {
-                    alert('Hubo un error al enviar. Por favor intenta de nuevo.');
+                    // Otro error
+                    alert('Error al enviar (código ' + result.status + '). Detalles en la consola.');
+                    console.error('Error details:', result.data);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Enviar y Continuar';
                 }
             }).catch(error => {
                 console.error('Error:', error);
-                alert('Hubo un error al enviar. Por favor intenta de nuevo.');
+                alert('Error de conexión: ' + error.message + '\n\nVerifica tu conexión a internet.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Enviar y Continuar';
             });
         });
     </script>
