@@ -1,165 +1,338 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Cartas para Mi Amor</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+    <meta charset="UTF-8">
+    <title>Cartas para Mi Amor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 
-    body {
-      background-color: #f7f1e1;
-      font-family: 'Georgia', serif;
-      color: #4b3f2f;
-      margin: 0;
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+        body {
+            background-color: #f7f1e1;
+            font-family: 'Georgia', serif;
+            color: #4b3f2f;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    h1 {
-      font-family: 'Dancing Script', cursive;
-      font-size: 3em;
-      color: #a67c52;
-      margin-bottom: 40px;
-    }
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3em;
+            color: #a67c52;
+            margin-bottom: 40px;
+        }
 
-    .dashboard {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 30px;
-      width: 100%;
-      max-width: 800px;
-    }
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 800px;
+        }
 
-    .card {
-      background-color: #fffaf0;
-      border: 1px solid #e6dcc7;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      text-align: center;
-      text-decoration: none;
-      color: #4b3f2f;
-      transition: transform 0.2s ease;
-    }
+        .card {
+            background-color: #fffaf0;
+            border: 1px solid #e6dcc7;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            text-decoration: none;
+            color: #4b3f2f;
+            transition: transform 0.2s ease;
+        }
 
-    .card:hover {
-      transform: translateY(-5px);
-    }
+        .card:hover {
+            transform: translateY(-5px);
+        }
 
-    .card.locked {
-      pointer-events: none;
-      opacity: 0.5;
-    }
+        .card.locked {
+            pointer-events: none;
+            opacity: 0.5;
+        }
 
-    .card img {
-      width: 50px;
-      height: 50px;
-      margin-bottom: 10px;
-    }
+        .card img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
 
-    .card span {
-      display: block;
-      font-size: 1.2em;
-    }
+        .card span {
+            display: block;
+            font-size: 1.2em;
+        }
 
-    .especial {
-      background-color: #fff5ec;
-      border: 2px dashed #d9b99b;
-      position: relative;
-      animation: brillo 2s infinite alternate;
-    }
+        .especial {
+            background-color: #fff5ec;
+            border: 2px dashed #d9b99b;
+            position: relative;
+            animation: brillo 2s infinite alternate;
+        }
 
-    .especial span {
-      font-weight: bold;
-      font-size: 1.3em;
-      color: #c2745b;
-    }
+        .especial span {
+            font-weight: bold;
+            font-size: 1.3em;
+            color: #c2745b;
+        }
 
-    @keyframes brillo {
-      0% { box-shadow: 0 0 10px rgba(255, 192, 203, 0.2); }
-      100% { box-shadow: 0 0 20px rgba(255, 192, 203, 0.6); }
-    }
-  </style>
+        @keyframes brillo {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 192, 203, 0.2);
+            }
+
+            100% {
+                box-shadow: 0 0 20px rgba(255, 192, 203, 0.6);
+            }
+        }
+
+        /* Estilos del Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background-color: #fffaf0;
+            margin: 10% auto;
+            padding: 40px;
+            border: 2px solid #e6dcc7;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            color: #a67c52;
+            float: right;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 20px;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #4b3f2f;
+        }
+
+        .modal-content h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #a67c52;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .modal-content p {
+            color: #4b3f2f;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        #desahogoText {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e6dcc7;
+            border-radius: 10px;
+            font-family: 'Georgia', serif;
+            font-size: 1em;
+            color: #4b3f2f;
+            background-color: #fff;
+            resize: vertical;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        #desahogoText:focus {
+            outline: none;
+            border-color: #a67c52;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #a67c52;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #8b6342;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+    </style>
 </head>
+
 <body>
 
-  <h1>Cartas para Mi Amor</h1>
+    <h1>Cartas para Mi Amor</h1>
 
-  <div class="dashboard">
-    <a class="card" href="1mes.html">
-      <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
-      <span>1 Mes</span>
-    </a>
+    <div class="dashboard">
+        <a class="card" href="1mes.html">
+            <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
+            <span>1 Mes</span>
+        </a>
 
-    <a class="card" href="2meses.html">
-      <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
-      <span>2 Meses</span>
-    </a>
+        <a class="card" href="2meses.html">
+            <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
+            <span>2 Meses</span>
+        </a>
 
-    <a class="card" href="3meses.html">
-      <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
-      <span>3 Meses</span>
-    </a>
+        <a class="card" href="3meses.html">
+            <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
+            <span>3 Meses</span>
+        </a>
 
-    <a class="card" href="4meses.html">
-      <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
-      <span>4 Meses</span>
-    </a>
+        <a class="card" href="4meses.html">
+            <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
+            <span>4 Meses</span>
+        </a>
 
-    <div class="card locked">
-      <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" alt="Candado">
-      <span>5 Meses</span>
+        <a class="card" href="#" onclick="openModal(event)">
+            <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
+            <span>5 Meses</span>
+        </a>
+
+        <a class="card" href="6meses.html">
+            <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
+            <span>6 Meses</span>
+        </a>
+
+        <a class="card" href="7meses.html">
+            <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
+            <span>7 Meses</span>
+        </a>
+
+        <a class="card" href="8meses.html">
+            <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
+            <span>8 Meses</span>
+        </a>
+
+        <a class="card" href="9meses.html">
+            <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
+            <span>9 Meses</span>
+        </a>
+
+        <a class="card" href="10meses.html">
+            <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
+            <span>10 Meses</span>
+        </a>
+
+        <a class="card" href="11meses.html">
+            <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
+            <span>11 Meses</span>
+        </a>
+
+        <div class="card locked especial">
+            <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" alt="Corazón">
+            <span>1 Año ✨</span>
+        </div>
     </div>
 
-    <a class="card" href="6meses.html">
-      <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
-      <span>6 Meses</span>
-    </a>
-
-    <a class="card" href="7meses.html">
-      <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
-      <span>7 Meses</span>
-    </a>
-
-    <a class="card" href="8meses.html">
-      <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
-      <span>8 Meses</span>
-    </a>
-
-    <a class="card" href="9meses.html">
-      <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
-      <span>9 Meses</span>
-    </a>
-
-    <a class="card" href="10meses.html">
-      <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
-      <span>10 Meses</span>
-    </a>
-
-    <a class="card" href="11meses.html">
-      <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Carpeta">
-      <span>11 Meses</span>
+    <!-- Modal para el desahogo -->
+    <div id="desahogoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Antes de continuar...</h2>
+            <p>Escribe tu desahogo y tus quejas:</p>
+            <form id="desahogoForm" action="https://formspree.io/f/bdrepaz" method="POST">
+                <textarea name="desahogo" id="desahogoText" rows="8" placeholder="Escribe aquí..." required></textarea>
+                <button type="submit" class="submit-btn">Enviar y Continuar</button>
+            </form>
+        </div>
     </div>
 
-    <div class="card locked especial">
-      <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" alt="Corazón">
-      <span>1 Año ✨</span>
-    </div>
-  </div>
+    <script>
+        function openModal(event) {
+            event.preventDefault();
+            document.getElementById('desahogoModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevenir scroll
+        }
+
+        function closeModal() {
+            document.getElementById('desahogoModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restaurar scroll
+        }
+
+        // Cerrar modal al hacer click fuera de él
+        window.onclick = function (event) {
+            const modal = document.getElementById('desahogoModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Manejar el envío del formulario
+        document.getElementById('desahogoForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+
+            // Enviar a Formspree
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    // Redirigir a 5meses.html después de enviar
+                    window.location.href = '5meses.html';
+                } else {
+                    alert('Hubo un error al enviar. Por favor intenta de nuevo.');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('Hubo un error al enviar. Por favor intenta de nuevo.');
+            });
+        });
+    </script>
 
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
