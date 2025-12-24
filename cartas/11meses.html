@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carta 11 Meses</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f7f1e1;
+      font-family: 'Georgia', serif;
+      color: #4b3f2f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      padding: 20px;
+    }
+
+    .dado-container {
+      perspective: 1000px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .dado {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s ease-out;
+      cursor: pointer;
+    }
+
+    .dado.girando {
+      animation: girarDado 1s ease-out;
+    }
+
+    @keyframes girarDado {
+      0% { transform: rotateX(0) rotateY(0); }
+      100% { transform: rotateX(var(--rotX)) rotateY(var(--rotY)); }
+    }
+
+    .cara {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: #fffaf0;
+      border: 3px solid #a67c52;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      font-weight: bold;
+      color: #a67c52;
+      box-shadow: inset 0 0 20px rgba(166, 124, 82, 0.2);
+    }
+
+    .cara-1 { transform: rotateY(0deg) translateZ(50px); }
+    .cara-2 { transform: rotateY(90deg) translateZ(50px); }
+    .cara-3 { transform: rotateY(180deg) translateZ(50px); }
+    .cara-4 { transform: rotateY(-90deg) translateZ(50px); }
+    .cara-5 { transform: rotateX(90deg) translateZ(50px); }
+    .cara-6 { transform: rotateX(-90deg) translateZ(50px); }
+
+    .btn-tirar {
+      background-color: #a67c52;
+      color: #fffaf0;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'Dancing Script', cursive;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(166, 124, 82, 0.3);
+    }
+
+    .btn-tirar:hover {
+      background-color: #8b6944;
+      transform: translateY(-2px);
+      box-shadow: 0 7px 20px rgba(166, 124, 82, 0.4);
+    }
+
+    .btn-tirar:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .mensaje {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5em;
+      color: #a67c52;
+      text-align: center;
+      min-height: 40px;
+    }
+
+    .carta {
+      background-color: #fffaf0;
+      padding: 40px;
+      max-width: 800px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border: 1px solid #e6dcc7;
+      display: none;
+    }
+
+    .carta.visible {
+      display: block;
+      animation: aparecerCarta 1s ease-out;
+    }
+
+    @keyframes aparecerCarta {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3em;
+      text-align: center;
+      color: #a67c52;
+      margin-bottom: 30px;
+    }
+
+    p {
+      font-size: 1.2em;
+      line-height: 1.7;
+      margin: 20px 0;
+      text-align: justify;
+    }
+
+    .firma {
+      text-align: right;
+      margin-top: 40px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="dado-container">
+      <div class="mensaje" id="mensaje">Tira el dado para leer la carta (tienes que sacar 6)</div>
+      <div class="dado" id="dado">
+        <div class="cara cara-1">⚀</div>
+        <div class="cara cara-2">⚁</div>
+        <div class="cara cara-3">⚂</div>
+        <div class="cara cara-4">⚃</div>
+        <div class="cara cara-5">⚄</div>
+        <div class="cara cara-6">⚅</div>
+      </div>
+      <button class="btn-tirar" id="btnTirar">Tirar Dado</button>
+    </div>
+
+    <div class="carta" id="carta">
+      <h1>Carta de los 11 Meses</h1>
+
+      <p>
+        Rápido han pasado estos 11 meses de relación que tenemos, cada vez más cerca de nuestro primer aniversario y con este el primero de muchos, donde dejaremos de contar los meses y empezaremos a contar los años, pero donde haremos todo lo posible por amarnos como siempre lo hemos hecho, aunque expresado de forma diferente.
+      </p>
+
+      <p>
+        En esta carta te quiero expresar cómo te veo, cómo te siento y lo hermoso que es pasar cada día de mi vida contigo. Tu amor es un refugio donde mi corazón y mi alma aprendieron a descansar, a en ciertos momentos olvidar los problemas y comenzar a vivir. Te veo como un lugar cálido y acogedor donde me siento seguro y donde me siento cuidado.
+      </p>
+
+      <p>
+        Y te comento que siento algo muy particular cuando te veo, y es que al verte siento que me voy en un viaje del que no quiero regresar. Siento cómo el tiempo se detiene y cómo todo me permite concentrarme en contemplarte, en contemplar tu belleza, en aprender de tu alegría, en elogiar las pequeñas cosas que sueles llamar imperfecciones pero que para mí son simplemente perfectas.
+      </p>
+
+      <p>
+        Eres el latido que le dio sentido a mi corazón, que le dio brillo y color a mis ojos, con la particularidad de que saben reconocerte y solo brillan ante ti. Donde tu abrazo es el hogar que el mundo nunca supo darme, donde tus "buenos días titii" son sinónimos de alegría y de realmente despertar, pero no es un despertar físico sino mental y emocional.
+      </p>
+
+      <p>
+        Y con esta carta despido esta última etapa y abro paso a la siguiente, donde ya no contarás los meses sino los años, y seguirás viendo a este Geremy romántico que tanto te ama, pero ya no tan a menudo en cartas. Todavía quedan muchas sorpresas y espero que puedas verlas, sentirlas y vivirlas, y sobre todo que sepas valorar cada carta que fue escrita con tanto amor de mí para ti. Gracias por todo.
+      </p>
+
+      <div class="firma">
+        Se despide atentamente:<br>
+        Tu niño
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const dado = document.getElementById('dado');
+    const btnTirar = document.getElementById('btnTirar');
+    const mensaje = document.getElementById('mensaje');
+    const carta = document.getElementById('carta');
+
+    const rotaciones = {
+      1: { x: 0, y: 0 },
+      2: { x: 0, y: 90 },
+      3: { x: 0, y: 180 },
+      4: { x: 0, y: -90 },
+      5: { x: -90, y: 0 },
+      6: { x: 90, y: 0 }
+    };
+
+    btnTirar.addEventListener('click', () => {
+      btnTirar.disabled = true;
+      mensaje.textContent = '🎲 Tirando el dado...';
+      
+      const resultado = Math.floor(Math.random() * 6) + 1;
+      const vueltasExtra = 4;
+      const rotX = rotaciones[resultado].x + (360 * vueltasExtra);
+      const rotY = rotaciones[resultado].y + (360 * vueltasExtra);
+      
+      dado.style.setProperty('--rotX', `${rotX}deg`);
+      dado.style.setProperty('--rotY', `${rotY}deg`);
+      dado.classList.add('girando');
+      
+      setTimeout(() => {
+        dado.classList.remove('girando');
+        
+        if (resultado === 6) {
+          mensaje.textContent = '¡Sacaste un 6! 💕 Puedes leer la carta';
+          setTimeout(() => {
+            carta.classList.add('visible');
+          }, 500);
+        } else {
+          mensaje.textContent = `Sacaste un ${resultado}... ¡Inténtalo de nuevo!`;
+          btnTirar.disabled = false;
+        }
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
