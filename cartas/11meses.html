@@ -156,6 +156,61 @@
       font-family: 'Dancing Script', cursive;
       font-size: 1.8em;
     }
+    .sello-corazon {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .corazon {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      background: #8b1e1e;
+      transform: rotate(-45deg);
+      box-shadow: 
+        0 8px 15px rgba(0, 0, 0, 0.25),
+        inset -4px -4px 8px rgba(0, 0, 0, 0.2),
+        inset 4px 4px 8px rgba(255, 255, 255, 0.15);
+    }
+
+    .corazon::before,
+    .corazon::after {
+      content: "";
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: #8b1e1e;
+      border-radius: 50%;
+    }
+
+    .corazon::before {
+      top: -30px;
+      left: 0;
+    }
+
+    .corazon::after {
+      left: 30px;
+      top: 0;
+    }
+
+
+    .corazon {
+      animation: sellar 1.5s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes sellar {
+      0% {
+        transform: rotate(-45deg) scale(0.5);
+        opacity: 0;
+      }
+      100% {
+        transform: rotate(-45deg) scale(1);
+        opacity: 1;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -164,7 +219,7 @@
       <div class="mensaje" id="mensaje">Tira el dado para leer la carta (tienes que sacar 6)</div>
       <div class="dado" id="dado">
         <div class="cara cara-1">⚀</div>
-        <div class="cara cara-2">⚁</div>
+        <div class="cara cara-2">⚁</div>N
         <div class="cara cara-3">⚂</div>
         <div class="cara cara-4">⚃</div>
         <div class="cara cara-5">⚄</div>
@@ -177,7 +232,7 @@
       <h1>Carta de los 11 Meses</h1>
 
       <p>
-        Rápido han pasado estos 11 meses de relación que tengo junto al amor de mi vida, cada vez más cerca de nuestro primer aniversario y con este el primero de muchos, donde dejaremos de contar los meses y empezaremos a contar los años, pero donde haremos todo lo posible por amarnos como siempre lo hemos hecho, aunque expresado de forma diferente.
+        Rápido han pasado estos 11 meses de relación que tenemos, cada vez más cerca de nuestro primer aniversario y con este el primero de muchos, donde dejaremos de contar los meses y empezaremos a contar los años, pero donde haremos todo lo posible por amarnos como siempre lo hemos hecho, aunque expresado de forma diferente.
       </p>
 
       <p>
@@ -189,7 +244,7 @@
       </p>
 
       <p>
-        Eres el latido que le dio sentido a mi corazón, que le dio brillo y color a mis ojos, con la particularidad de que saben reconocerte y solo brillan ante ti. Donde tu abrazo es el hogar que el mundo nunca supo darme, donde tus "buenos días titii" son sinónimos de alegría y de realmente despertar, pero no es un despertar físico sino mental y emocional que me haces sentir mi amor.
+        Eres el latido que le dio sentido a mi corazón, que le dio brillo y color a mis ojos, con la particularidad de que saben reconocerte y solo brillan ante ti. Donde tu abrazo es el hogar que el mundo nunca supo darme, donde tus "buenos días titii" son sinónimos de alegría y de realmente despertar, pero no es un despertar físico sino mental y emocional.
       </p>
 
       <p>
@@ -199,6 +254,82 @@
       <div class="firma">
         Se despide atentamente:<br>
         Tu niño
+      </div>
+      
+      <div class="corazon-container">
+        <svg class="corazon-anatomico" viewBox="0 0 300 300" width="200" height="200">
+          <defs>
+            <linearGradient id="gradCorazon" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#d63447;stop-opacity:1" />
+              <stop offset="50%" style="stop-color:#c1121f;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#780000;stop-opacity:1" />
+            </linearGradient>
+            <filter id="sombra">
+              <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+            </filter>
+          </defs>
+          
+          <!-- Cuerpo principal del corazón -->
+          <path class="cuerpo-corazon" d="
+            M 150 80
+            C 150 80, 130 60, 110 60
+            C 85 60, 70 75, 70 95
+            C 70 115, 85 135, 110 155
+            L 150 195
+            L 190 155
+            C 215 135, 230 115, 230 95
+            C 230 75, 215 60, 190 60
+            C 170 60, 150 80, 150 80 Z
+          " fill="url(#gradCorazon)" filter="url(#sombra)"/>
+          
+          <!-- Aurículas superiores -->
+          <ellipse class="auricula-izq" cx="110" cy="70" rx="25" ry="22" fill="#b8264a" opacity="0.8"/>
+          <ellipse class="auricula-der" cx="190" cy="70" rx="25" ry="22" fill="#a61e3d" opacity="0.75"/>
+          
+          <!-- Aorta principal -->
+          <path class="aorta" d="
+            M 145 65
+            C 145 55, 140 45, 135 35
+            C 133 30, 130 25, 128 22
+          " stroke="#8b1538" stroke-width="12" fill="none" stroke-linecap="round" opacity="0.9"/>
+          
+          <path class="aorta-curva" d="
+            M 128 22
+            C 120 18, 110 20, 105 25
+          " stroke="#8b1538" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.8"/>
+          
+          <!-- Arteria pulmonar -->
+          <path class="arteria-pulmonar" d="
+            M 155 65
+            C 155 55, 160 45, 165 35
+            C 167 30, 170 25, 172 22
+          " stroke="#a02045" stroke-width="11" fill="none" stroke-linecap="round" opacity="0.85"/>
+          
+          <path class="arteria-pulmonar-rama" d="
+            M 172 22
+            C 180 18, 190 20, 195 25
+          " stroke="#a02045" stroke-width="9" fill="none" stroke-linecap="round" opacity="0.75"/>
+          
+          <!-- Venas cavas -->
+          <path class="vena-cava-superior" d="
+            M 185 60
+            C 200 55, 210 50, 215 45
+          " stroke="#7a1131" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.7"/>
+          
+          <path class="vena-cava-inferior" d="
+            M 115 60
+            C 100 55, 90 50, 85 45
+          " stroke="#7a1131" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.7"/>
+          
+          <!-- Detalles de textura -->
+          <path d="M 120 110 Q 135 120, 150 110" stroke="#5a0a1f" stroke-width="2" fill="none" opacity="0.4"/>
+          <path d="M 130 140 Q 140 148, 150 140" stroke="#5a0a1f" stroke-width="2" fill="none" opacity="0.4"/>
+          <path d="M 150 110 Q 165 120, 180 110" stroke="#5a0a1f" stroke-width="2" fill="none" opacity="0.4"/>
+          <path d="M 150 140 Q 160 148, 170 140" stroke="#5a0a1f" stroke-width="2" fill="none" opacity="0.4"/>
+          
+          <!-- Líneas de separación ventricular -->
+          <path d="M 150 80 L 150 180" stroke="#4a0515" stroke-width="3" fill="none" opacity="0.3"/>
+        </svg>
       </div>
     </div>
   </div>
@@ -235,7 +366,8 @@
         dado.classList.remove('girando');
         
         if (resultado === 6) {
-          mensaje.textContent = '¡Sacaste un 6! 💕 Puedes leer la carta';
+          mensaje.textContent = '¡Sacaste un 6! Puedes leer la carta';
+          document.querySelector('.dado-container').style.display = 'none';
           setTimeout(() => {
             carta.classList.add('visible');
           }, 500);
