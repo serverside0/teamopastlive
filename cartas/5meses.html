@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carta 5 (Desahogo)</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f7f1e1;
+      font-family: 'Georgia', serif;
+      color: #4b3f2f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* LOGIN */
+    .login-container {
+      background-color: #fffaf0;
+      padding: 40px;
+      max-width: 400px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      border: 1px solid #e6dcc7;
+    }
+
+    .password-input {
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+      margin-top: 15px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      background-color: #a67c52;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .error-message {
+      color: red;
+      margin-top: 10px;
+    }
+
+    .attempts-left {
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+
+    .blocked-message {
+      color: #8b0000;
+      font-weight: bold;
+    }
+
+    /* CARTA */
+    .carta {
+      background-color: #fffaf0;
+      padding: 40px;
+      max-width: 700px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border: 1px solid #e6dcc7;
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3em;
+      text-align: center;
+      color: #a67c52;
+    }
+
+    p {
+      font-size: 1.2em;
+      line-height: 1.7;
+      margin: 20px 0;
+      text-align: justify;
+    }
+
+    .firma {
+      text-align: right;
+      margin-top: 40px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8em;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+  </style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginContainer" class="login-container">
+  <h2>Acceso a la Carta</h2>
+  <p>Ingresa la contraseña para ver tu carta</p>
+
+  <input
+    type="password"
+    id="passwordInput"
+    class="password-input"
+    placeholder="Contraseña"
+    maxlength="50"
+  />
+
+  <button class="btn" onclick="verificarPassword()">Entrar</button>
+
+  <p id="errorMessage" class="error-message hidden"></p>
+  <p id="attemptsLeft" class="attempts-left"></p>
+</div>
+
+<!-- CARTA -->
+<div id="cartaContainer" class="hidden">
+  <div class="carta">
+    <h1>Carta 5 (Desahogo)</h1>
+
+    <p>
+      Esta es una carta completamente diferentes a todas las anteriores...
+    </p>
+
+    <!-- (CONTENIDO ORIGINAL DE TU CARTA SIN CAMBIOS) -->
+
+    <div class="firma">
+      ATT: Geremy Gomez
+    </div>
+  </div>
+</div>
+
+<script>
+  const PASSWORD_CORRECTA = "Factura";
+  const MAX_INTENTOS = 5;
+  const STORAGE_KEY = "intentos_fallidos";
+  const BLOCKED_KEY = "cuenta_bloqueada";
+
+  window.onload = () => {
+    if (localStorage.getItem(BLOCKED_KEY) === "true") {
+      mostrarPantallaBloqueada();
+    } else {
+      const intentos = parseInt(localStorage.getItem(STORAGE_KEY) || "0");
+      if (intentos > 0) actualizarMensajeIntentos(intentos);
+    }
+  };
+
+  function verificarPassword() {
+    const input = document.getElementById("passwordInput");
+    const password = input.value;
+
+    if (!password) {
+      mostrarError("Ingresa una contraseña");
+      return;
+    }
+
+    if (password === PASSWORD_CORRECTA) {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(BLOCKED_KEY);
+      mostrarCarta();
+    } else {
+      registrarIntentoFallido();
+    }
+  }
+
+  function registrarIntentoFallido() {
+    let intentos = parseInt(localStorage.getItem(STORAGE_KEY) || "0");
+    intentos++;
+
+    localStorage.setItem(STORAGE_KEY, intentos);
+
+    if (intentos >= MAX_INTENTOS) {
+      localStorage.setItem(BLOCKED_KEY, "true");
+      mostrarPantallaBloqueada();
+    } else {
+      mostrarError("Contraseña incorrecta");
+      actualizarMensajeIntentos(intentos);
+    }
+
+    document.getElementById("passwordInput").value = "";
+  }
+
+  function actualizarMensajeIntentos(intentos) {
+    document.getElementById("attemptsLeft").textContent =
+      `Intentos restantes: ${MAX_INTENTOS - intentos}`;
+  }
+
+  function mostrarError(texto) {
+    const error = document.getElementById("errorMessage");
+    error.textContent = texto;
+    error.classList.remove("hidden");
+    setTimeout(() => error.classList.add("hidden"), 3000);
+  }
+
+  function mostrarPantallaBloqueada() {
+    document.getElementById("loginContainer").innerHTML = `
+      <h2>Acceso Bloqueado</h2>
+      <p class="blocked-message">
+        Has excedido el número máximo de intentos.<br><br>
+        El acceso a esta carta ha sido bloqueado.
+      </p>`;
+  }
+
+  function mostrarCarta() {
+    document.getElementById("loginContainer").classList.add("hidden");
+    document.getElementById("cartaContainer").classList.remove("hidden");
+  }
+
+  document.getElementById("passwordInput").addEventListener("keypress", e => {
+    if (e.key === "Enter") verificarPassword();
+  });
+</script>
+
+</body>
+</html>
